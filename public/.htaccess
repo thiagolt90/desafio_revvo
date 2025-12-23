@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Dependendo do ambiente precisa do RewriteBase
+    #RewriteBase /desafio_revvo/public/
+
+    # Bloqueia listagem de diretórios e arquivos ocultos
+    Options -Indexes
+    RedirectMatch 404 /\..*
+
+    # Protege arquivos sensíveis (config, backups, etc.)
+    RedirectMatch 404 /config.*
+    RedirectMatch 404 /\.(env|git|log|bak|bkp|sql)$
+
+    # Não reescreve arquivos estáticos existentes (css, js, img)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Roteia tudo para index.php preservando query string
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>
