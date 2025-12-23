@@ -1,20 +1,24 @@
 <?php
 
 class HomeController {
+    private $courseModel;
+
+    public function __construct() {
+        $this->courseModel = new CourseModel();
+    }
+
     public function index() {
         session_start();
+
+        $cursos = $this->courseModel->getRecentCourses(11);
         
-        // Usuário não logado: mostra página inicial com botão login
-        $this->renderView('home');
+        $this->renderView('home', compact(
+            'cursos'
+        ));
     }
     
-    private function renderView($view) {
-        require_once '../src/views/layouts/main.php';
-    }
-    
-    public function about() {
-        $pageTitle = 'Sobre o Sistema';
-        require_once '../src/views/layouts/main.php';
-        require_once '../src/views/about.php';
+    private function renderView($view, $data) {
+        extract($data);
+        require_once __DIR__ . '/../views/layouts/main.php';
     }
 }
