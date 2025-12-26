@@ -24,7 +24,7 @@ class Router {
             $controller = isset($url[0]) && $url[0] != '' ? ucwords($url[0]) . 'Controller' : 'HomeController';
             $this->controllerName = $controller;
             $this->method = isset($url[1]) ? $url[1] : 'index';
-            
+
             unset($url[0], $url[1]);
             $this->params = array_values($url);
         } else {
@@ -46,14 +46,33 @@ class Router {
     }
 
     private function callMethod() {
-        if (isset($this->controller) && method_exists($this->controller, $this->method)) {
-            if (!empty($this->params)) {
-                call_user_func_array([$this->controller, $this->method], $this->params);
+        $controller = $this->controller;
+        $method = $this->method;
+        $params = $this->params;
+
+        if (method_exists($controller, $method)) {
+            if (!empty($params)) {
+                call_user_func_array([$controller, $method], $params);
             } else {
-                call_user_func([$this->controller, $this->method]);
+                call_user_func([$controller, $method]);
             }
-        } else {
-            $this->controller->index();
+            return;
         }
+
+        if ($controller instanceof CourseController) {
+            $slug = $method;
+            if (!empty($params)) {
+                $slug = $params[0];
+            }
+
+            if (method_exists($controller, 'viewSlug')) {
+                $controller->viewSlug($slug);
+                return;
+            }
+        }
+
+        http_response_code(404);
+        echo "<h1>404 - Página não encontrada</h1>";
     }
+
 }

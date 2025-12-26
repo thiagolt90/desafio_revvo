@@ -1,19 +1,19 @@
 <?php
 
-class HomeController {
+class HomeController extends BaseController {
     private $courseModel;
 
     public function __construct() {
+        parent::__construct();
         $this->courseModel = new CourseModel();
     }
 
     public function index() {
-        session_start();
-
-        $cursos = $this->courseModel->getRecentCourses(11);
+        $courses = $this->courseModel->getRecentCourses(11);
+        $banners = $this->courseModel->getNewCourses(5);
         
         $this->renderView('home', compact(
-            'cursos'
+            'banners', 'courses'
         ));
     }
     

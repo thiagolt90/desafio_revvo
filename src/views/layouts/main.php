@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($pageTitle) ? $pageTitle : 'Desafio Revvo'; ?></title>
+    <title><?php echo isset($pageTitle) ? $pageTitle : APP_NAME; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
@@ -11,30 +11,36 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white px-3">
         <div class="container">
-            <a class="navbar-brand" href="/"><img src="./img/logo.png" alt="Logo TLT"></a>
+            <a class="navbar-brand" href="<?= BASE_URL; ?>"><img src="<?= BASE_URL; ?>/img/logo.png" alt="Logo TLT"></a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarHeader">
-                <form class="mx-auto my-2 my-lg-0 w-50">
+                <form class="mx-auto my-2 my-lg-0 w-50" action="<?= BASE_URL; ?>">
                     <div class="input-group">
-                        <input type="text" class="form-control rounded-pill" placeholder="Pesquisar cursos..." style="background-color: #efefef;">
+                        <input type="text" name="search" class="form-control rounded-pill" placeholder="Pesquisar cursos..." style="background-color: #efefef;">
                     </div>
                 </form>
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item dropdown">
+                        <?php if (isset($_SESSION['user_id'])): ?>
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
                             <img src="https://placehold.co/40x40" class="rounded-circle me-2" alt="Avatar">
-                            <span class="d-none d-lg-inline">Thiago Lopes Teixeira</span>
+                            <span class="d-none d-lg-inline">
+                                <span>Seja bem-vindo</span><br>
+                                Thiago Lopes Teixeira
+                            </span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Meu perfil</a></li>
-                            <li><a class="dropdown-item" href="#">Configurações</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL; ?>/user">Meu perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="#">Sair</a></li>
+                            <li><a class="dropdown-item text-danger" href="<?= BASE_URL; ?>/user/logout">Sair</a></li>
                         </ul>
+                        <?php else: ?>
+                        <a href="<?= BASE_URL; ?>/user/login">Login</a>
+                        <?php endif; ?>
                     </li>
                 </ul>
             </div>
@@ -49,7 +55,7 @@
         <div class="container py-4">
             <div class="row align-items-center text-center text-md-start">
             <div class="col-md-6 mb-3 mb-md-0">
-                <img src="./img/logo-footer.png" alt="Logo TLT">
+                <img src="<?= BASE_URL; ?>/img/logo-footer.png" alt="Logo TLT">
                 <p class="text-muted small mb-0">
                     Lorem Ipsum
                 </p>

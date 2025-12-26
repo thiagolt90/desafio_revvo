@@ -5,8 +5,8 @@ class Database {
     private $pdo;
     
     private function __construct() {
-        $config = require_once __DIR__ . '/../config/database.php';
-        $dsn = "mysql:host={$config['host']};dbname={$config['dbname']};charset={$config['charset']}";
+        $db_config = require_once __DIR__ . '/../config/database.php';
+        $dsn = "mysql:host={$db_config['host']};dbname={$db_config['dbname']};charset={$db_config['charset']}";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -14,7 +14,7 @@ class Database {
         ];
 
         try {
-            $this->pdo = new PDO($dsn, $config['username'], $config['password'], $options);
+            $this->pdo = new PDO($dsn, $db_config['username'], $db_config['password'], $options);
         } catch (PDOException $e) {
             die("Erro de conexão: " . $e->getMessage());
         }
