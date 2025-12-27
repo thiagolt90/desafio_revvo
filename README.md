@@ -29,9 +29,11 @@ Desenvolvedor Full Stack com experiência em desenvolvimento de soluções web, 
 ## DB
 
 -- Criar DB
+
 CREATE SCHEMA `desafio_revvo`;
 
 -- Criar tabela de usuários
+
 CREATE TABLE `desafio_revvo`.`users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -45,6 +47,7 @@ CREATE TABLE `desafio_revvo`.`users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
 
 -- Criar tabela de cursos
+
 CREATE TABLE `desafio_revvo`.`courses` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
