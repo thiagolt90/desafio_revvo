@@ -31,9 +31,7 @@ class UserController extends BaseController {
             } else {
                 $user = $this->userModel->login($email, $password);
                 if ($user) {
-                    $_SESSION['user_id']        = $user["id"];
-                    $_SESSION['user_name']      = $user["name"];
-                    $_SESSION['user_picture']   = $user["picture"];
+                    $_SESSION['user_id'] = $user["id"];
                     header('Location: ' . BASE_URL . '/');
                     exit();
                 } else {

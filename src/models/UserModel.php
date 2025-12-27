@@ -97,17 +97,12 @@ class UserModel {
         return (isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : 0;
     }
 
-    public function loggedName() {
-        return (isset($_SESSION['user_name'])) ? $_SESSION['user_name'] : "";
-    }
-
     public function isLoggedIn() {
         return isset($_SESSION['user_id']);
     }
 
     public function logout() {
         unset($_SESSION['user_id']);
-        unset($_SESSION['user_name']);
     }
 
     private function emailExists($id, $email) {

@@ -1,0 +1,71 @@
+// Header
+.dr-header
+    #dr-header-navbar
+        .dr-form
+            margin-right: 20px !important
+
+            .dr-search
+                .dr-input
+                    background-color: #efefef
+                
+                .dr-button
+                    z-index: 3
+                    background: none
+                    
+                    .dr-icon
+                        color: #999
+
+                        &:before
+                            padding: 10px
+
+        .dr-separator
+            height: 60px
+
+        .dr-dropdown
+            margin-left: 20px !important
+
+            .dr-dropdown-toggle
+                .dr-user-picture
+                    max-width: 50px
+                    max-height: 50px
+                    min-width: 50px
+                    min-height: 50px
+                    border: 2px solid #929093
+
+                .dr-bem-vindo
+                    .dr-bem-vindo-nome
+                        font-size: 1.25em
+                        font-weight: 500
+
+@media screen and (max-width: 992px)
+    .dr-header
+        #dr-header-navbar
+            .dr-form
+                margin: auto !important
+            
+            .dr-separator
+                display: none !important
+
+// Footer
+.dr-footer
+    .dr-text
+        margin-top: 10px
+        font-size: 0.75em
+
+    .dr-social
+        .dr-icon
+            background-color: #b5b5b5
+            padding: 6px 10px
+            border-radius: 50px
+            margin-right: 15px
+            color: #ffffff
+            font-size: 1.25em
+
+    .dr-copyright
+        background-color: #e5e1e2
+
+@media screen and (max-width: 992px)
+    .dr-footer
+        .dr-social
+            .dr-icon
+                margin: 7px

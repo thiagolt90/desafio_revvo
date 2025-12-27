@@ -1,35 +1,43 @@
-<style type="text/css">
-    .banner {
-        background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216');
-        background-size: cover;
-        background-position: center;
-        height: 400px;
-        position: relative;
-        color: #fff;
-    }
-
-    .banner-overlay {
-        background: rgba(0, 0, 0, 0.65);
-        max-width: 420px;
-    }
-</style>
 <?php if (!empty($banners)): ?>
 <!-- Banner -->
-<div class="container-fluid p-0">
-    <?php foreach ($banners as $course): ?>
-        <div class="banner d-flex align-items-center">
-            <div class="container">
-                <?php if (count($banners) > 1): ?>
-                <div class="banner-overlay p-4">
-                    <h2 class="fw-bold"><?= htmlspecialchars($course['name']); ?></h2>
-                    <p class="small">
-                        <?= htmlspecialchars(substr($course['description'], 0, 120)); ?>...
-                    </p>
-                    <a href="<?= BASE_URL; ?>/course/<?= htmlspecialchars($course['slug']); ?>" class="btn btn-outline-light btn-sm">VER CURSO</a>
-                </div>
-                <?php endif; ?>
-            </div>
+<div id="dr-main-banner" class="carousel slide" data-bs-ride="carousel">
+    <?php if (count($banners) > 1): ?>
+    <div class="carousel-indicators">
+        <div class="carousel-indicators-box">
+            <?php for ($i = 0; $i < count($banners); $i ++): ?>
+                <button type="button" data-bs-target="#dr-main-banner" data-bs-slide-to="<?= $i; ?>" <?= ($i == 0) ? "class=\"active\"" : ""?> aria-current="true" aria-label="<?= htmlspecialchars($banners[$i]['name']); ?>"></button>
+            <?php endfor; ?>
         </div>
-    <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+
+    <div class="carousel-inner">
+        <?php for ($i = 0; $i < count($banners); $i ++): ?>
+            <div class="carousel-item <?= ($i == 0) ? "active" : ""?>">
+                <div class="dr-banner d-flex align-items-center" style="background-image: url(<?= BASE_URL . "/uploads/" . htmlspecialchars($banners[$i]['picture']); ?>);">
+                    <div class="container">
+                        <div class="dr-banner-overlay p-4">
+                            <h2 class="fw-bold"><?= htmlspecialchars($banners[$i]['name']); ?></h2>
+                            <p class="small">
+                                <?= htmlspecialchars(substr($banners[$i]['description'], 0, 120)); ?>...
+                            </p>
+                            <a href="<?= BASE_URL; ?>/course/<?= htmlspecialchars($banners[$i]['slug']); ?>" class="btn btn-outline-light btn-sm dr-show-course">VER CURSO</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endfor; ?>
+    </div>
+
+    <?php if (count($banners) > 1): ?>
+    <button class="carousel-control-prev" type="button" data-bs-target="#dr-main-banner" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#dr-main-banner" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Próximo</span>
+    </button>
+    <?php endif; ?>
 </div>
 <?php endif; ?>
