@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($pageTitle) ? $pageTitle : APP_NAME; ?></title>
+    <title><?= isset($pageTitle) ? $pageTitle . " - " . APP_NAME : APP_NAME; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
@@ -20,26 +20,32 @@
             <div class="collapse navbar-collapse" id="navbarHeader">
                 <form class="mx-auto my-2 my-lg-0 w-50" action="<?= BASE_URL; ?>">
                     <div class="input-group">
-                        <input type="text" name="search" class="form-control rounded-pill" placeholder="Pesquisar cursos..." style="background-color: #efefef;">
+                        <input type="text" name="q" class="form-control rounded-pill" placeholder="Pesquisar cursos..." value="<?= (isset($_REQUEST["q"]) ? htmlspecialchars($_REQUEST["q"]) : ""); ?>" style="background-color: #efefef;">
                     </div>
                 </form>
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item dropdown">
-                        <?php if (isset($_SESSION['user_id'])): ?>
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
-                            <img src="https://placehold.co/40x40" class="rounded-circle me-2" alt="Avatar">
-                            <span class="d-none d-lg-inline">
-                                <span>Seja bem-vindo</span><br>
-                                Thiago Lopes Teixeira
+                            <?php if ($currentUser): ?>
+                            <img src="<?= (isset($currentUser['picture']) ? BASE_URL . "/uploads/" . $currentUser['picture'] : "https://placehold.co/40x40"); ?>" class="rounded-circle me-2" alt="Avatar">
+                            <?php endif; ?>
+                            <span>
+                                Seja bem-vindo<br>
+                                <span><?= (isset($currentUser['name']) ? $currentUser['name'] : "Acesse a área do usuário"); ?></span>
                             </span>
                         </a>
+                        <?php if ($currentUser): ?>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="<?= BASE_URL; ?>/user">Meu perfil</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL; ?>/user/edit">Meu perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item text-danger" href="<?= BASE_URL; ?>/user/logout">Sair</a></li>
                         </ul>
                         <?php else: ?>
-                        <a href="<?= BASE_URL; ?>/user/login">Login</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="<?= BASE_URL; ?>/user/login">Login</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL; ?>/user/new">Cadastre-se</a></li>
+                        </ul>
                         <?php endif; ?>
                     </li>
                 </ul>
@@ -84,6 +90,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/app.js"></script>
+    <!-- <script src="<?= BASE_URL; ?>/js/app.js"></script> -->
 </body>
 </html>

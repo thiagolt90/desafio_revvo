@@ -8,6 +8,13 @@ class CourseController extends BaseController {
         $this->courseModel = new CourseModel();
     }
 
+    private function renderView($view, $data) {
+        $data['currentUser'] = $this->currentUser;
+        extract($data);
+        $pageTitle = $course['name'];
+        require_once __DIR__ . '/../views/layouts/main.php';
+    }
+
     public function viewSlug($slug) {
         $course = $this->courseModel->getBySlug($slug);
         if (!$course) {
@@ -24,16 +31,26 @@ class CourseController extends BaseController {
             'banners', 'course'
         ));
     }
-    
-    private function renderView($view, $data) {
-        extract($data);
-        require_once __DIR__ . '/../views/layouts/main.php';
-    }
 
     public function edit($slug) {
         $this->userModel->requireLogin();
+        $error = null;
+        $message = null;
 
         $course = $this->courseModel->getBySlug($slug);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $result = $this->courseModel->saveCourse($course['id'], $_POST);
+            if (isset($result["success"])) {
+                $message = $result["success"];
+
+                $course = $this->courseModel->getBySlug($slug);
+                
+            } elseif (isset($result["error"])) {
+                $error = $result["error"];
+            }
+        }
+        
         if (!$course) {
             http_response_code(404);
             $pageTitle = 'Curso não encontrado';
@@ -42,54 +59,8 @@ class CourseController extends BaseController {
             return;
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if ($this->saveCourse($course['id'], $_POST)) {
-                header('Location: ' . BASE_URL . '/course/' . $slug);
-                exit();
-            }
-        }
-
-        $pageTitle = 'Editar: ' . $course['name'];
-        $view = 'course-edit';
-        require __DIR__ . '/../views/layouts/main.php';
+        $this->renderView('course-edit', compact(
+            'course', 'error', 'message'
+        ));
     }
-
-    private function saveCourse($id, $data) {
-        $this->userModel->requireLogin();
-
-        if ($id > 0) {
-            $sql = "UPDATE courses SET 
-                    name = ?, description = ?, slug = ?, is_new = ?, picture = ?
-                    WHERE id = ?";
-
-            $stmt = $this->db->prepare($sql);
-
-            return $stmt->execute([
-                $data['name'],
-                $data['description'],
-                $data['slug'], 
-                isset($data['is_new']) ? 1 : 0,
-                $data['picture'] ?? null,
-                $id
-            ]);
-        } else {
-            $sql = "INSERT INTO courses 
-                    (name, description, slug, is_new, picture)
-                    VALUES
-                    (?, ?, ?, ?, ?)";
-
-            $stmt = $this->db->prepare($sql);
-
-            return $stmt->execute([
-                $data['name'],
-                $data['description'],
-                $data['slug'], 
-                isset($data['is_new']) ? 1 : 0,
-                $data['picture'] ?? null
-            ]);
-        }
-        
-    }
-
-
 }

@@ -9,14 +9,14 @@
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                         <div class="card h-100 shadow-sm">
                             <?php if ($course['picture']): ?>
-                                <img src="<?= BASE_URL; ?>/uploads/<?php echo htmlspecialchars($course['picture']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($course['name']); ?>" />
+                                <img src="<?= BASE_URL; ?>/uploads/<?= htmlspecialchars($course['picture']); ?>" class="card-img-top" alt="<?= htmlspecialchars($course['name']); ?>" />
                             <?php endif; ?>
                             <div class="card-body d-flex flex-column">
-                                <h6 class="fw-bold"><?php echo htmlspecialchars($course['name']); ?></h6>
+                                <h6 class="fw-bold"><?= htmlspecialchars($course['name']); ?></h6>
                                 <p class="text-muted small flex-grow-1">
-                                    <?php echo htmlspecialchars(substr($course['description'], 0, 120)); ?>...
+                                    <?= htmlspecialchars(substr($course['description'], 0, 120)); ?>...
                                 </p>
-                                <a href="<?= BASE_URL; ?>/course/<?php echo htmlspecialchars($course['slug']); ?>" class="btn btn-success rounded-pill">Ver curso</a>
+                                <a href="<?= BASE_URL; ?>/course/<?= htmlspecialchars($course['slug']); ?>" class="btn btn-success rounded-pill">Ver curso</a>
                             </div>
                         </div>
                     </div>

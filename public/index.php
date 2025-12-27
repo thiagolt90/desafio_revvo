@@ -26,8 +26,7 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
-require_once '../src/core/Router.php';
-require_once '../src/core/Database.php';
+require_once __DIR__ . '/../src/core/helpers.php';
 
 $router = new Router();
 $router->route(); 

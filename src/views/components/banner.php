@@ -21,11 +21,11 @@
             <div class="container">
                 <?php if (count($banners) > 1): ?>
                 <div class="banner-overlay p-4">
-                    <h2 class="fw-bold"><?php echo htmlspecialchars($course['name']); ?></h2>
+                    <h2 class="fw-bold"><?= htmlspecialchars($course['name']); ?></h2>
                     <p class="small">
-                        <?php echo htmlspecialchars(substr($course['description'], 0, 120)); ?>...
+                        <?= htmlspecialchars(substr($course['description'], 0, 120)); ?>...
                     </p>
-                    <a href="<?= BASE_URL; ?>/course/<?php echo htmlspecialchars($course['slug']); ?>" class="btn btn-outline-light btn-sm">VER CURSO</a>
+                    <a href="<?= BASE_URL; ?>/course/<?= htmlspecialchars($course['slug']); ?>" class="btn btn-outline-light btn-sm">VER CURSO</a>
                 </div>
                 <?php endif; ?>
             </div>

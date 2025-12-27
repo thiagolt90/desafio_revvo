@@ -9,7 +9,13 @@ class HomeController extends BaseController {
     }
 
     public function index() {
-        $courses = $this->courseModel->getRecentCourses(11);
+
+        $query = trim($_GET['q'] ?? '');
+        if ($query) {
+            $courses = $this->courseModel->getRecentCourses($query, 11);
+        } else {
+            $courses = $this->courseModel->getRecentCourses(null, 11);
+        }
         $banners = $this->courseModel->getNewCourses(5);
         
         $this->renderView('home', compact(
@@ -18,6 +24,7 @@ class HomeController extends BaseController {
     }
     
     private function renderView($view, $data) {
+        $data['currentUser'] = $this->currentUser;
         extract($data);
         require_once __DIR__ . '/../views/layouts/main.php';
     }

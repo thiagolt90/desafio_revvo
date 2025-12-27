@@ -1,13 +1,19 @@
 <?php
 
-class UserController {
-    private $userModel;
+class UserController extends BaseController {
+    public $userModel;
 
     public function __construct() {
+        parent::__construct();
         $this->userModel = new UserModel();
     }
 
-    /** Views */
+    private function renderView($view, $data = null) {
+        $data['currentUser'] = $this->currentUser;
+        extract($data);
+        require_once __DIR__ . '/../views/layouts/main.php';
+    }
+
     public function login() {
         if ($this->userModel->isLoggedIn()) {
             header('Location: ' . BASE_URL . '/');
@@ -23,9 +29,11 @@ class UserController {
             if (empty($email) || empty($password)) {
                 $error = 'Preencha todos os campos';
             } else {
-                $userId = $this->userModel->login($email, $password);
-                if ($userId) {
-                    $_SESSION['user_id'] = $userId;
+                $user = $this->userModel->login($email, $password);
+                if ($user) {
+                    $_SESSION['user_id']        = $user["id"];
+                    $_SESSION['user_name']      = $user["name"];
+                    $_SESSION['user_picture']   = $user["picture"];
                     header('Location: ' . BASE_URL . '/');
                     exit();
                 } else {
@@ -40,40 +48,36 @@ class UserController {
     }
 
     public function new() {
+        if ($this->userModel->isLoggedIn()) {
+            header('Location: ' . BASE_URL . '/user/edit');
+            exit();
+        }
+
         $this->edit();
     }
 
     public function edit() {
         $user = null;
         $error = null;
+        $message = null;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->saveUser($user['id'], $_POST);
+            $result = $this->userModel->saveUser($this->userModel->loggedId(), $_POST);
+
+            if (isset($result["error"])) {
+                $error = $result["error"];
+            } elseif (isset($result["success"])) {
+                $message = "Usuário criado/alterado com sucesso!";
+            }
         }
 
         if ($this->userModel->isLoggedIn()) {
-            $user = $this->userModel->getById( $this->userModel->getLoggedId() );
+            $user = $this->userModel->getById( $this->userModel->loggedId() );
         }
 
         $this->renderView('user-edit', compact(
-            'error', 'user'
+            'error', 'message', 'user'
         ));
-    }
-    
-    private function renderView($view, $data = null) {
-        if ($data != null) {
-            extract($data);
-        }
-        require_once __DIR__ . '/../views/layouts/main.php';
-    }
-
-    /** Validações */
-    public function isLoggedIn() {
-        return isset($_SESSION['user_id']);
-    }
-
-    public function getCurrentUserId() {
-        return $_SESSION['user_id'] ?? null;
     }
 
     public function logout() {
@@ -81,11 +85,5 @@ class UserController {
         header('Location: ' . BASE_URL . '/');
         exit();
     }
-
-    private function emailExists($id, $email) {
-        $sql = "SELECT id FROM users WHERE email = ? AND id <> ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([$email, $id]);
-        return $stmt->fetch() !== false;
-    }
+    
 }

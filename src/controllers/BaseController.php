@@ -1,9 +1,15 @@
 <?php
 
 abstract class BaseController {
-    protected $userModel;
+    public $userModel;
+    public $currentUser = null;
 
     public function __construct() {
         $this->userModel = new UserModel();
+        $this->loadCurrentUser();
+    }
+
+    private function loadCurrentUser() {
+        $this->currentUser = $this->userModel->getCurrentUser();
     }
 }
