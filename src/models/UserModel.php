@@ -88,7 +88,7 @@ class UserModel {
     public function requireLogin() {
         session_start();
         if (!isset($_SESSION['user_id'])) {
-            header('Location: ' . BASE_URL . '/user/login?return=' . urlencode($_SERVER['REQUEST_URI']));
+            header('Location: ' . BASE_URL . 'user/login?return=' . urlencode($_SERVER['REQUEST_URI']));
             exit();
         }
     }

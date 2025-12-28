@@ -63,7 +63,7 @@ class CourseController extends BaseController {
                 $message = $result["success"];
                 $slug = $result["slug"];
                 if ($course_id == 0) {
-                    header('Location: ' . BASE_URL . '/course/' . $slug);
+                    header('Location: ' . BASE_URL . 'course/' . $slug);
                     exit();
                 } else {
                     $course = $this->courseModel->getBySlug($slug);

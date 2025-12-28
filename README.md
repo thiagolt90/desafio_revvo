@@ -60,3 +60,17 @@ CREATE TABLE `desafio_revvo`.`courses` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+## Rodando a aplicação
+
+-- Configure a base de dados
+
+\desafio_revvo\src\config\database.php
+
+-- Configure o VirtualHost para a pasta public
+
+\desafio_revvo\public
+
+-- Acesse pela url definida no VirtualHost
+
+Ex: http://desafio.revvo/

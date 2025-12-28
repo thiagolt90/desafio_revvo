@@ -44,14 +44,14 @@
                         <input type="file" class="form-control" name="picture_upload" accept="image/*">
                         <?php if (isset($course['picture'])): ?>
                             <div class="mt-2">
-                                <img src="<?= BASE_URL; ?>/uploads/<?= htmlspecialchars($course['picture']); ?>" class="img-thumbnail dr-course-image" alt="Atual">
+                                <img src="<?= BASE_URL; ?>uploads/<?= htmlspecialchars($course['picture']); ?>" class="img-thumbnail dr-course-image" alt="Atual">
                                 <small class="text-muted d-block">Nova foto substituirá a atual</small>
                             </div>
                         <?php endif; ?>
                     </div>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="<?= BASE_URL; ?>/course/<?= $course['slug']; ?>" class="btn btn-primary">Voltar</a>
+                        <a href="<?= BASE_URL; ?>course/<?= $course['slug']; ?>" class="btn btn-primary">Voltar</a>
                         <button type="submit" class="btn btn-success">Salvar</button>
                     </div>
                 </form>
@@ -59,4 +59,4 @@
         </div>
     </div>
 </div>
-<script src="<?= BASE_URL; ?>/js/course.js"></script>
+<script src="<?= BASE_URL; ?>js/course.js"></script>

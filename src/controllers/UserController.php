@@ -16,7 +16,7 @@ class UserController extends BaseController {
 
     public function login() {
         if ($this->userModel->isLoggedIn()) {
-            header('Location: ' . BASE_URL . '/');
+            header('Location: ' . BASE_URL);
             exit();
         }
 
@@ -32,7 +32,7 @@ class UserController extends BaseController {
                 $user = $this->userModel->login($email, $password);
                 if ($user) {
                     $_SESSION['user_id'] = $user["id"];
-                    header('Location: ' . BASE_URL . '/');
+                    header('Location: ' . BASE_URL);
                     exit();
                 } else {
                     $error = 'Usuário ou senha inválidos';
@@ -47,7 +47,7 @@ class UserController extends BaseController {
 
     public function new() {
         if ($this->userModel->isLoggedIn()) {
-            header('Location: ' . BASE_URL . '/user/edit');
+            header('Location: ' . BASE_URL . 'user/edit');
             exit();
         }
 
@@ -80,7 +80,7 @@ class UserController extends BaseController {
 
     public function logout() {
         $this->userModel->logout();
-        header('Location: ' . BASE_URL . '/');
+        header('Location: ' . BASE_URL);
         exit();
     }
     

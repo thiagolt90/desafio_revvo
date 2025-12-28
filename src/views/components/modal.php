@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content border-0 rounded-4">
             <div class="modal-header p-0 border-0">
-                <img src="<?= BASE_URL; ?>/img/img-modal.png" alt="Banner" class="img-fluid w-100 dr-modal-img" style="max-height: 220px; object-fit: cover;">
+                <img src="<?= BASE_URL; ?>img/img-modal.png" alt="Banner" class="img-fluid w-100 dr-modal-img" style="max-height: 220px; object-fit: cover;">
                 <button type="button" class="btn-close position-absolute m-3 dr-modal-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body text-center py-4 px-4 px-md-5">

@@ -10,12 +10,12 @@
     <title><?= isset($pageTitle) ? $pageTitle . " - " . APP_NAME : APP_NAME; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?= BASE_URL; ?>/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL; ?>css/style.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white px-3 dr-header">
         <div class="container">
-            <a class="navbar-brand" href="<?= BASE_URL; ?>"><img src="<?= BASE_URL; ?>/img/logo.png" alt="Logo TLT"></a>
+            <a class="navbar-brand" href="<?= BASE_URL; ?>"><img src="<?= BASE_URL; ?>img/logo.png" alt="Logo TLT"></a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dr-header-navbar">
                 <span class="navbar-toggler-icon"></span>
@@ -37,7 +37,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center dr-dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                             <?php if ($currentUser): ?>
-                            <img src="<?= (isset($currentUser['picture']) ? BASE_URL . "/uploads/" . $currentUser['picture'] : "https://placehold.co/50x50"); ?>" class="rounded-circle me-2 dr-user-picture" alt="Avatar">
+                            <img src="<?= (isset($currentUser['picture']) ? BASE_URL . "uploads/" . $currentUser['picture'] : "https://placehold.co/50x50"); ?>" class="rounded-circle me-2 dr-user-picture" alt="Avatar">
                             <?php endif; ?>
                             <span class="dr-bem-vindo">
                                 Seja bem-vindo<br>
@@ -46,15 +46,15 @@
                         </a>
                         <?php if ($currentUser): ?>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="<?= BASE_URL; ?>/user/edit">Meu cadastro</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL; ?>user/edit">Meu cadastro</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="<?= BASE_URL; ?>/user/logout">Sair</a></li>
+                            <li><a class="dropdown-item text-danger" href="<?= BASE_URL; ?>user/logout">Sair</a></li>
                         </ul>
                         <?php else: ?>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="<?= BASE_URL; ?>/user/login">Login</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL; ?>user/login">Login</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="<?= BASE_URL; ?>/user/new">Cadastre-se</a></li>
+                            <li><a class="dropdown-item" href="<?= BASE_URL; ?>user/new">Cadastre-se</a></li>
                         </ul>
                         <?php endif; ?>
                     </li>
@@ -71,7 +71,7 @@
         <div class="container py-4">
             <div class="row align-items-center text-center text-md-start">
             <div class="col-md-6 mb-3 mb-md-0">
-                <img src="<?= BASE_URL; ?>/img/logo-footer.png" alt="Logo TLT">
+                <img src="<?= BASE_URL; ?>img/logo-footer.png" alt="Logo TLT">
                 <p class="text-muted mb-0 dr-text">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut pharetra ex.<br>
                     Nullam ultrices consectetur turpis, vitae pretium ligula posuere id.
@@ -101,6 +101,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= BASE_URL; ?>/js/modal.js"></script>
+    <script src="<?= BASE_URL; ?>js/modal.js"></script>
 </body>
 </html>

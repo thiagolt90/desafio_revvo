@@ -26,7 +26,7 @@
                         Entrar
                     </button>
 
-                    <a href="<?= BASE_URL; ?>/user/new" class="btn btn-secondary w-100 btn-lg mb-4">
+                    <a href="<?= BASE_URL; ?>user/new" class="btn btn-secondary w-100 btn-lg mb-4">
                         Cadastre-se
                     </a>
                 </form>
