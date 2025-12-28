@@ -20,9 +20,16 @@ function uploadImage($file, $module = "") {
         return ['error' => 'Tipo inválido. Use JPG, PNG, GIF ou WebP'];
     }
 
+    $uploadDir = __DIR__ . '/../../public/uploads/';
+    if (!is_dir($uploadDir)) {
+        if (!mkdir($uploadDir, 0755, true)) {
+            return ['error' => 'Erro ao criar pasta de uploads'];
+        }
+    }
+
     $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
     $filename = uniqid($module . '_', true) . '_' . bin2hex(random_bytes(8)) . '.' . $extension;
-    $uploadPath = __DIR__ . '/../../public/uploads/' . $filename;
+    $uploadPath = $uploadDir . $filename;
 
     if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
         return ['filename' => $filename];
