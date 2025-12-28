@@ -1,3 +1,7 @@
+<?php
+    global $router;
+    $isHome = $router->isHome ?? false;
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>

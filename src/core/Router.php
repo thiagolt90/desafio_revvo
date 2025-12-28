@@ -4,6 +4,7 @@ class Router {
     private $controllerName;
     private $method;
     private $params = [];
+    public bool $isHome = false;
 
     public function __construct() {
         $this->parseUrl();
@@ -28,6 +29,7 @@ class Router {
             unset($url[0], $url[1]);
             $this->params = array_values($url);
         } else {
+            $this->isHome = true;
             $this->controllerName = 'HomeController';
             $this->method = 'index';
         }

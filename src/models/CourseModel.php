@@ -86,7 +86,7 @@ class CourseModel {
                 $pictureFilename,
                 $id
             ]) !== false) {
-                return ['success' => 'Curso atualizado com sucesso!'];
+                return ['success' => 'Curso atualizado com sucesso!', 'slug' => $slug];
             } else {
                 return ['error' => 'Problemas ao atualizar curso, tente novamente.'];
             }
@@ -105,7 +105,7 @@ class CourseModel {
                 isset($data['is_new']) ? 1 : 0,
                 $pictureFilename
             ]) !== false) {
-                return ['success' => 'Curso criado com sucesso!'];
+                return ['success' => 'Curso criado com sucesso!', 'slug' => $slug];
             } else {
                 return ['error' => 'Problemas ao criar curso, tente novamente.'];
             }

@@ -11,7 +11,7 @@ class CourseController extends BaseController {
     private function renderView($view, $data) {
         $data['currentUser'] = $this->currentUser;
         extract($data);
-        $pageTitle = $course['name'];
+        $pageTitle = ($course['name'] ?? "Novo Curso");
         require_once __DIR__ . '/../views/layouts/main.php';
     }
 
@@ -32,31 +32,45 @@ class CourseController extends BaseController {
         ));
     }
 
-    public function edit($slug) {
+    public function new() {
+        $this->edit();
+    }
+
+    public function edit($slug = null) {
         $this->userModel->requireLogin();
         $error = null;
         $message = null;
+        $course = null;
+        $course_id = ($course['id'] ?? 0);
 
-        $course = $this->courseModel->getBySlug($slug);
+        if ($slug != null) {
+            $course = $this->courseModel->getBySlug($slug);
+            
+            if (!$course) {
+                http_response_code(404);
+                $pageTitle = 'Curso não encontrado';
+                $view = '404';
+                require __DIR__ . '/../views/layouts/main.php';
+                return;
+            } else {
+                $course_id = $course['id'];
+            }
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $result = $this->courseModel->saveCourse($course['id'], $_POST);
+            $result = $this->courseModel->saveCourse($course_id, $_POST);
             if (isset($result["success"])) {
                 $message = $result["success"];
-
-                $course = $this->courseModel->getBySlug($slug);
-                
+                $slug = $result["slug"];
+                if ($course_id == 0) {
+                    header('Location: ' . BASE_URL . '/course/' . $slug);
+                    exit();
+                } else {
+                    $course = $this->courseModel->getBySlug($slug);
+                }
             } elseif (isset($result["error"])) {
                 $error = $result["error"];
             }
-        }
-        
-        if (!$course) {
-            http_response_code(404);
-            $pageTitle = 'Curso não encontrado';
-            $view = '404';
-            require __DIR__ . '/../views/layouts/main.php';
-            return;
         }
 
         $this->renderView('course-edit', compact(

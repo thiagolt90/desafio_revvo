@@ -32,7 +32,7 @@
                 <div class="card h-100 border-2 border-dashed text-center dr-add-course">
                     <div class="card-body d-flex flex-column align-items-center justify-content-center">
                         <img src="<?= BASE_URL; ?>/img/add-course.png" alt="Adicionar Curso" class="mb-2">
-                        <p class="fw-bold text-muted mb-0">Adicionar curso</p>
+                        <a href="<?= BASE_URL; ?>/course/new" class="fw-bold text-muted mb-0">Adicionar curso</a>
                     </div>
                 </div>
             </div>

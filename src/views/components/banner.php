@@ -15,6 +15,7 @@
         <?php for ($i = 0; $i < count($banners); $i ++): ?>
             <div class="carousel-item <?= ($i == 0) ? "active" : ""?>">
                 <div class="dr-banner d-flex align-items-center" style="background-image: url(<?= BASE_URL . "/uploads/" . htmlspecialchars($banners[$i]['picture']); ?>);">
+                    <?php if ($isHome): ?>
                     <div class="container">
                         <div class="dr-banner-overlay p-4">
                             <h2 class="fw-bold"><?= htmlspecialchars($banners[$i]['name']); ?></h2>
@@ -24,6 +25,7 @@
                             <a href="<?= BASE_URL; ?>/course/<?= htmlspecialchars($banners[$i]['slug']); ?>" class="btn btn-outline-light btn-sm dr-show-course">VER CURSO</a>
                         </div>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endfor; ?>
